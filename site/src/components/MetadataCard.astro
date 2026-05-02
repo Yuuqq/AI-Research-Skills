@@ -1,0 +1,46 @@
+---
+interface Props {
+  name: string;
+  version: string;
+  author: string;
+  license: string;
+  tags: string[];
+  dependencies: string[];
+  category: string;
+}
+
+const { name, version, author, license, tags, dependencies, category } = Astro.props;
+---
+
+<div class="metadata-card">
+  <dl>
+    <dt>Category</dt>
+    <dd>{category}</dd>
+    <dt>Version</dt>
+    <dd>{version}</dd>
+    <dt>Author</dt>
+    <dd>{author}</dd>
+    <dt>License</dt>
+    <dd>{license}</dd>
+    {tags.length > 0 && (
+      <>
+        <dt>Tags</dt>
+        <dd>
+          {tags.map((tag) => (
+            <span class="tag-pill">{tag}</span>
+          ))}
+        </dd>
+      </>
+    )}
+    {dependencies.length > 0 && (
+      <>
+        <dt>Dependencies</dt>
+        <dd>
+          {dependencies.map((dep) => (
+            <code>{dep}</code>
+          )).reduce((prev, curr) => prev ? <>{prev}, {curr}</> : curr, null as any)}
+        </dd>
+      </>
+    )}
+  </dl>
+</div>
