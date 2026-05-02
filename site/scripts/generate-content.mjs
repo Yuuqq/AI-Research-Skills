@@ -9,6 +9,31 @@ const SITE_DIR = resolve(__dirname, '..');
 const CONTENT_DIR = join(SITE_DIR, 'src', 'content', 'docs');
 const SIDEBAR_PATH = join(SITE_DIR, 'src', 'sidebar.ts');
 
+const CATEGORY_COLORS = {
+  '0-autoresearch-skill': '#F59E0B',
+  '01-model-architecture': '#6366F1',
+  '02-tokenization': '#818CF8',
+  '03-fine-tuning': '#A855F7',
+  '04-mechanistic-interpretability': '#C084FC',
+  '05-data-processing': '#22D3EE',
+  '06-post-training': '#34D399',
+  '07-safety-alignment': '#F43F5E',
+  '08-distributed-training': '#6366F1',
+  '09-infrastructure': '#818CF8',
+  '10-optimization': '#F59E0B',
+  '11-evaluation': '#22D3EE',
+  '12-inference-serving': '#34D399',
+  '13-mlops': '#A855F7',
+  '14-agents': '#6366F1',
+  '15-rag': '#818CF8',
+  '16-prompt-engineering': '#C084FC',
+  '17-observability': '#22D3EE',
+  '18-multimodal': '#F59E0B',
+  '19-emerging-techniques': '#F43F5E',
+  '20-ml-paper-writing': '#34D399',
+  '21-research-ideation': '#6366F1',
+};
+
 const CATEGORY_LABELS = {
   '0-autoresearch-skill': 'Autoresearch',
   '01-model-architecture': 'Model Architecture',
@@ -129,7 +154,7 @@ function escapeAttr(str) {
   return str.replace(/"/g, '&quot;');
 }
 
-function generateMdxContent(frontmatter, body, skillDirName) {
+function generateMdxContent(frontmatter, body, skillDirName, categorySlug) {
   const {
     name,
     description = '',
@@ -161,6 +186,9 @@ function generateMdxContent(frontmatter, body, skillDirName) {
   if (depsYaml) lines.push(depsYaml);
 
   lines.push('---', '');
+
+  const catColor = CATEGORY_COLORS[categorySlug] || '#6366F1';
+  lines.push(`<div class="skill-accent-bar" style="--cat-color:${catColor}"></div>`, '');
 
   const tagsBadges = tagsArr.map(t => `\`${t}\``).join(' ');
   const depsBadges = depsArr.map(d => `\`${d}\``).join(' ');
@@ -236,7 +264,7 @@ function main() {
 
       ensureDir(outputDir);
 
-      const mdxContent = generateMdxContent(frontmatter, body, skillEntry);
+      const mdxContent = generateMdxContent(frontmatter, body, skillEntry, categorySlug);
       writeFileSync(outputPath, mdxContent, 'utf-8');
 
       const displayLabel = toTitleCase(skillEntry);

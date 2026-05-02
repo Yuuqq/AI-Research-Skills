@@ -82,6 +82,15 @@ h3, h4 {
 }
 
 /* ── Metadata Card (table in skill pages) ── */
+.skill-accent-bar {
+  --cat-color: var(--accent-indigo);
+  height: 3px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, var(--cat-color), color-mix(in srgb, var(--cat-color) 40%, transparent));
+  margin: 0 0 1.5rem 0;
+  box-shadow: 0 0 12px color-mix(in srgb, var(--cat-color) 20%, transparent);
+}
+
 article > table:first-of-type {
   background: var(--surface);
   border: 1px solid var(--border-micro);
