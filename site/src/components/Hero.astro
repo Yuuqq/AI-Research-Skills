@@ -1,17 +1,35 @@
 ---
 interface Props {
   title: string;
+  subtitle?: string;
 }
-const { title } = Astro.props;
+const { title, subtitle } = Astro.props;
 ---
 
 <div class="hero-section">
-  <div class="glow-orb" style="width:400px;height:400px;background:rgba(99,102,241,0.08);top:-100px;left:20%;"></div>
-  <div class="glow-orb" style="width:300px;height:300px;background:rgba(168,85,247,0.06);top:50px;right:15%;"></div>
+  <div class="glow-orb glow-animate-1" style="width:420px;height:420px;background:rgba(99,102,241,0.10);top:-120px;left:18%;"></div>
+  <div class="glow-orb glow-animate-2" style="width:320px;height:320px;background:rgba(168,85,247,0.07);top:40px;right:12%;"></div>
+  <div class="glow-orb glow-animate-3" style="width:200px;height:200px;background:rgba(34,211,238,0.06);bottom:-60px;left:45%;"></div>
   <h1 class="hero-title">{title}</h1>
   <p class="hero-subtitle">
-    The most comprehensive open-source library of AI research skills.
-    From hypothesis to paper — 94 expert-level skills across 22 categories,
-    enabling autonomous AI research.
+    {subtitle || 'The most comprehensive open-source library of AI research skills. From hypothesis to paper — 94 expert-level skills across 22 categories, enabling autonomous AI research.'}
   </p>
 </div>
+
+<style>
+  @keyframes glow-drift-1 {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(30px, -20px) scale(1.08); }
+  }
+  @keyframes glow-drift-2 {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(-25px, 15px) scale(1.05); }
+  }
+  @keyframes glow-drift-3 {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(15px, -10px) scale(1.1); }
+  }
+  .glow-animate-1 { animation: glow-drift-1 8s ease-in-out infinite; }
+  .glow-animate-2 { animation: glow-drift-2 10s ease-in-out infinite; }
+  .glow-animate-3 { animation: glow-drift-3 12s ease-in-out infinite; }
+</style>

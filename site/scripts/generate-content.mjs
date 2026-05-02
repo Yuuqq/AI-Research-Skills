@@ -207,6 +207,34 @@ function generateMdxContent(frontmatter, body, skillDirName, categorySlug) {
   return lines.join('\n');
 }
 
+function generateCategoryIndex(categoryLabel, categorySlug, skills, catColor) {
+  const base = '/AI-Research-SKILLs';
+  const lines = [
+    '---',
+    `title: "${escapeQuotes(categoryLabel)}"`,
+    `description: "Skills in the ${escapeQuotes(categoryLabel)} category"`,
+    '---',
+    '',
+    `<div class="skill-accent-bar" style="--cat-color:${catColor}"></div>`,
+    '',
+    `<div class="skill-index-grid">`,
+  ];
+
+  for (const skill of skills) {
+    let desc = skill.description ? skill.description.slice(0, 120) : '';
+    desc = desc.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    const tagsStr = (skill.tags || []).slice(0, 3).map(t => `\`${t}\``).join(' ');
+    lines.push(`  <a class="skill-index-card" href="${base}/${categorySlug}/${skill.slug}" style="--card-accent:${catColor}">`);
+    lines.push(`    <div class="skill-index-card-title">${skill.title}</div>`);
+    if (desc) lines.push(`    <div class="skill-index-card-desc">${desc}</div>`);
+    if (tagsStr) lines.push(`    <div class="skill-index-card-tags">${tagsStr}</div>`);
+    lines.push(`  </a>`);
+  }
+
+  lines.push('</div>', '');
+  return lines.join('\n');
+}
+
 function ensureDir(dirPath) {
   if (!existsSync(dirPath)) {
     mkdirSync(dirPath, { recursive: true });
@@ -247,6 +275,7 @@ function main() {
     if (skillDirs.length === 0) continue;
 
     const sidebarItems = [];
+    const categorySkills = [];
 
     for (const skillEntry of skillDirs) {
       const skillDir = join(categoryDir, skillEntry);
@@ -269,6 +298,13 @@ function main() {
 
       const displayLabel = toTitleCase(skillEntry);
 
+      categorySkills.push({
+        title: displayLabel,
+        slug: skillSlug,
+        description: frontmatter.description || '',
+        tags: Array.isArray(frontmatter.tags) ? frontmatter.tags : [],
+      });
+
       sidebarItems.push({
         label: displayLabel,
         slug: `${categorySlug}/${skillSlug}`,
@@ -276,6 +312,14 @@ function main() {
 
       totalSkills++;
       console.log(`  ✅ ${frontmatter.name} → ${categorySlug}/${skillSlug}`);
+    }
+
+    if (categorySkills.length > 0) {
+      const catColor = CATEGORY_COLORS[categorySlug] || '#6366F1';
+      const indexPath = join(CONTENT_DIR, categorySlug, 'index.mdx');
+      const indexContent = generateCategoryIndex(categoryLabel, categorySlug, categorySkills, catColor);
+      writeFileSync(indexPath, indexContent, 'utf-8');
+      console.log(`  📄 Category index → ${categorySlug}/index.mdx`);
     }
 
     if (sidebarItems.length > 0) {
