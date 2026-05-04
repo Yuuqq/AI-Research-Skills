@@ -5,7 +5,7 @@ import { sidebar } from './src/sidebar';
 
 export default defineConfig({
   site: 'https://yuuqq.github.io',
-  base: '/AI-Research-SKILLs/',
+  base: '/AI-Research-Skills/',
   output: 'static',
   integrations: [
     starlight({
@@ -13,7 +13,7 @@ export default defineConfig({
       description: '94 AI research skills enabling autonomous AI research — from hypothesis to paper',
       sidebar,
       social: [
-        { icon: 'github', label: 'GitHub', href: 'https://github.com/Yuuqq/AI-Research-SKILLs' },
+        { icon: 'github', label: 'GitHub', href: 'https://github.com/Yuuqq/AI-Research-Skills' },
       ],
       pagination: false,
       customCss: ['/src/styles/custom.css'],
