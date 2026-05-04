@@ -15,9 +15,26 @@
   <a href="https://www.linkedin.com/company/orchestra-research/"><img src="https://img.shields.io/badge/LinkedIn-Follow-0A66C2.svg?logo=linkedin" alt="LinkedIn"></a>
 </p>
 
+> **🍴 Fork Notice**: This repository is a community fork of [Orchestra Research's AI-Research-SKILLs](https://github.com/Orchestra-Research/AI-Research-SKILLs) (MIT License). It extends the upstream library with two additional skills not yet present in the original. All credit for the core library goes to the Orchestra Research team.
+
+---
+
+## ✨ What's Different in This Fork
+
+The upstream library ships **87 production-quality AI research skills**. This fork adds **2 more**, filling gaps that matter for real-world RAG and model-merging workflows:
+
+| Skill | Category | Why it was added |
+|-------|----------|-----------------|
+| **[Haystack](15-rag/haystack/)** | RAG (15) | deepset's Haystack is the leading *enterprise* RAG framework — modular pipeline architecture, 100+ integrations (Elasticsearch, Weaviate, Pinecone, OpenAI, Cohere). The upstream covers lightweight vector DBs (Chroma, FAISS, Qdrant) but lacks a full pipeline orchestrator. Haystack fills that gap for teams building production document-QA and multi-step search systems. |
+| **[Mergekit](19-emerging-techniques/mergekit/)** | Emerging Techniques (19) | The upstream already has a general `model-merging` skill. Mergekit is the dominant open-source *tool* for actually performing merges — it supports SLERP, TIES, DARE, Task Arithmetic, Frankenmerging, and Evolutionary methods with zero GPU required. This skill gives agents a concrete, runnable workflow instead of conceptual guidance. |
+
+**Total: 89 skills across 22 categories** (87 upstream + 2 new).
+
+---
+
 <div align="center">
 
-### **87 Skills Powering AI Research in 2026**
+### **89 Skills Powering AI Research in 2026**
 
 </div>
 
@@ -32,12 +49,14 @@
 | **Model Architecture** (5) | **Fine-Tuning** (4) | **Post-Training** (8) |
 | **Distributed Training** (6) | **Optimization** (6) | **Inference** (4) |
 | **Tokenization** (2) | **Data Processing** (2) | **Evaluation** (3) |
-| **Safety & Alignment** (4) | **Agents** (4) | **RAG** (5) |
+| **Safety & Alignment** (4) | **Agents** (4) | **RAG** (6) ⭐ |
 | **Multimodal** (7) | **Prompt Engineering** (4) | **MLOps** (3) |
 | **Observability** (2) | **Infrastructure** (3) | **Mech Interp** (4) |
-| **Emerging Techniques** (6) | | |
+| **Emerging Techniques** (7) ⭐ | | |
 
 </div>
+
+⭐ = expanded in this fork
 
 </details>
 
@@ -45,6 +64,7 @@
 
 ## Table of Contents
 
+- [What's Different in This Fork](#-whats-different-in-this-fork)
 - [Our Mission](#our-mission)
 - [Path Towards AI Research Agent](#path-towards-ai-research-agent)
 - [Available AI Research Engineering Skills](#available-ai-research-engineering-skills)
@@ -74,7 +94,7 @@ AI Researchers spend more time debugging infrastructure than testing hypotheses 
 We provide a comprehensive skills library that enables AI agents to autonomously conduct the full research lifecycle — from brainstorming ideas to writing the paper.
   - Autonomous Research - The **autoresearch** skill orchestrates the entire research workflow using a two-loop architecture, routing to domain skills as needed
   - Specialized Expertise - Each domain skill provides deep, production-ready knowledge of a specific framework (Megatron-LM, vLLM, TRL, etc.)
-  - End-to-End Coverage - 87 skills spanning the full AI research lifecycle, from ideation and literature survey to experiments and paper writing
+  - End-to-End Coverage - 89 skills spanning the full AI research lifecycle, from ideation and literature survey to experiments and paper writing
   - Research-Grade Quality - Documentation sourced from official repos, real GitHub issues, and battle-tested production workflows
 
 ## Available AI Research Engineering Skills
@@ -95,7 +115,7 @@ npx @orchestra-research/ai-research-skills
 Read https://www.orchestra-research.com/ai-research-skills/welcome.md and follow the instructions to install and use AI Research Skills.
 ```
 
-This installs all 87 skills, loads the **autoresearch** orchestration layer, and starts autonomous research.
+This installs all 87 upstream skills (plus the 2 fork additions if you clone this repo directly), loads the **autoresearch** orchestration layer, and starts autonomous research.
 
 <details>
 <summary><b>What the installer does</b></summary>
@@ -141,7 +161,7 @@ Install skill categories directly using the **Claude Code CLI**:
 
 </details>
 
-### All 22 Categories (87 Skills)
+### All 22 Categories (89 Skills)
 
 | Category | Skills | Included |
 |----------|--------|----------|
@@ -162,14 +182,14 @@ Install skill categories directly using the **Claude Code CLI**:
 | Inference | 4 | vLLM, TensorRT-LLM, llama.cpp, SGLang |
 | MLOps | 3 | W&B, MLflow, TensorBoard |
 | Agents | 4 | LangChain, LlamaIndex, CrewAI, AutoGPT |
-| RAG | 5 | Chroma, FAISS, Pinecone, Qdrant, Sentence Transformers |
+| RAG | **6** ⭐ | Chroma, FAISS, Pinecone, Qdrant, Sentence Transformers, **Haystack** |
 | Prompt Eng | 4 | DSPy, Instructor, Guidance, Outlines |
 | Observability | 2 | LangSmith, Phoenix |
 | Multimodal | 7 | CLIP, Whisper, LLaVA, BLIP-2, SAM, Stable Diffusion, AudioCraft |
-| Emerging | 6 | MoE, Model Merging, Long Context, Speculative Decoding, Distillation, Pruning |
+| Emerging | **7** ⭐ | MoE, Model Merging, Long Context, Speculative Decoding, Distillation, Pruning, **Mergekit** |
 
 <details>
-<summary><b>View All 87 Skills in Details</b></summary>
+<summary><b>View All 89 Skills in Details</b></summary>
 
 ### 🔬 Autoresearch (1 skill) — Central Orchestration Layer
 - **[Autoresearch](0-autoresearch-skill/)** - Autonomous research orchestration using a two-loop architecture (inner optimization + outer synthesis). Manages the full lifecycle from literature survey to paper writing, routing to all domain-specific skills. Supports Claude Code /loop and OpenClaw heartbeat for continuous operation (390 lines + 3 refs)
@@ -262,6 +282,7 @@ Install skill categories directly using the **Claude Code CLI**:
 - **[Sentence Transformers](15-rag/sentence-transformers/)** - 5000+ embedding models, multilingual, 15k stars (370 lines)
 - **[Pinecone](15-rag/pinecone/)** - Managed vector database, auto-scaling, <100ms latency (410 lines)
 - **[Qdrant](15-rag/qdrant/)** - High-performance vector search, Rust-powered, hybrid search with filtering (493 lines + 2 refs)
+- **[Haystack](15-rag/haystack/)** ⭐ **(new in this fork)** - deepset's production NLP & RAG framework, modular pipeline architecture with 100+ integrations (OpenAI, Cohere, Weaviate, Elasticsearch, Pinecone) — use for enterprise document QA and multi-step search pipelines
 
 ### 🎨 Multimodal (7 skills)
 - **[CLIP](18-multimodal/clip/)** - OpenAI's vision-language model, zero-shot classification, 25k stars (320 lines)
@@ -294,6 +315,7 @@ Install skill categories directly using the **Claude Code CLI**:
 - **[Speculative Decoding](19-emerging-techniques/speculative-decoding/)** - 1.5-3.6× faster inference with Medusa, Lookahead (379 lines)
 - **[Knowledge Distillation](19-emerging-techniques/knowledge-distillation/)** - Compress models 70B→7B with MiniLLM, temperature scaling (424 lines)
 - **[Model Pruning](19-emerging-techniques/model-pruning/)** - 50% sparsity with Wanda, SparseGPT, <1% accuracy loss (417 lines)
+- **[Mergekit](19-emerging-techniques/mergekit/)** ⭐ **(new in this fork)** - Merge fine-tuned LLMs without any GPU compute; supports SLERP, TIES, DARE, Task Arithmetic, Frankenmerging, and Evolutionary methods via YAML config
 
 ### 📝 ML Paper Writing (2 skills)
 - **[ML Paper Writing](20-ml-paper-writing/)** - Write publication-ready papers for NeurIPS, ICML, ICLR, ACL, AAAI, COLM with LaTeX templates, citation verification, and writing best practices (532 lines + 5 refs)
@@ -308,7 +330,7 @@ Install skill categories directly using the **Claude Code CLI**:
 
 ## Demos
 
-All 87 skills in this repo are automatically synced to [Orchestra Research](https://www.orchestra-research.com/research-skills), where you can add them to your projects with one click and use them with AI research agents.
+The 87 upstream skills in this repo are automatically synced to [Orchestra Research](https://www.orchestra-research.com/research-skills), where you can add them to your projects with one click and use them with AI research agents. The 2 skills added in this fork (Haystack, Mergekit) are available here only.
 
 **See skills in action → [demos/](demos/README.md)**
 
@@ -372,7 +394,7 @@ We're building towards 80 comprehensive skills across the full AI research lifec
 
 | Metric | Current | Target |
 |--------|---------|--------|
-| **Skills** | **87** (high-quality, standardized YAML) | 80 ✅ |
+| **Skills** | **89** (87 upstream + 2 added in this fork) | 80 ✅ |
 | **Avg Lines/Skill** | **420 lines** (focused + progressive disclosure) | 200-600 lines |
 | **Documentation** | **~130,000 lines** total (SKILL.md + references) | 100,000+ lines |
 | **Gold Standard Skills** | **65** with comprehensive references | 50+ |
@@ -410,11 +432,11 @@ claude-ai-research-skills/
 ├── 12-inference-serving/        (4 skills ✓ - vLLM, TensorRT-LLM, llama.cpp, SGLang)
 ├── 13-mlops/                    (3 skills ✓ - Weights & Biases, MLflow, TensorBoard)
 ├── 14-agents/                   (4 skills ✓ - LangChain, LlamaIndex, CrewAI, AutoGPT)
-├── 15-rag/                      (5 skills ✓ - Chroma, FAISS, Sentence Transformers, Pinecone, Qdrant)
+├── 15-rag/                      (6 skills ✓ - Chroma, FAISS, Sentence Transformers, Pinecone, Qdrant, Haystack ⭐)
 ├── 16-prompt-engineering/       (4 skills ✓ - DSPy, Instructor, Guidance, Outlines)
 ├── 17-observability/            (2 skills ✓ - LangSmith, Phoenix)
 ├── 18-multimodal/               (7 skills ✓ - CLIP, Whisper, LLaVA, Stable Diffusion, SAM, BLIP-2, AudioCraft)
-├── 19-emerging-techniques/      (6 skills ✓ - MoE, Model Merging, Long Context, Speculative Decoding, Distillation, Pruning)
+├── 19-emerging-techniques/      (7 skills ✓ - MoE, Model Merging, Long Context, Speculative Decoding, Distillation, Pruning, Mergekit ⭐)
 ├── 20-ml-paper-writing/         (2 skills ✓ - ML Paper Writing with LaTeX templates, Academic Plotting)
 ├── 21-research-ideation/                 (2 skills ✓ - Research Brainstorming, Creative Thinking)
 └── packages/ai-research-skills/ (npm package for one-command installation)
