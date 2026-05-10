@@ -503,11 +503,11 @@ export async function uninstallAllSkills(agents) {
         const entries = readdirSync(agent.skillsPath, { withFileTypes: true });
         for (const entry of entries) {
           const linkPath = join(agent.skillsPath, entry.name);
-          // Only remove if it's a symlink pointing to our canonical dir
+          // Remove if it's a symlink or a copied directory (Windows fallback)
           try {
             const stats = lstatSync(linkPath);
-            if (stats.isSymbolicLink()) {
-              rmSync(linkPath, { force: true });
+            if (stats.isSymbolicLink() || stats.isDirectory()) {
+              rmSync(linkPath, { recursive: !stats.isSymbolicLink(), force: true });
             }
           } catch {
             // Ignore errors
@@ -559,8 +559,8 @@ export async function uninstallSpecificSkills(skillPaths, agents) {
         try {
           if (existsSync(linkPath)) {
             const stats = lstatSync(linkPath);
-            if (stats.isSymbolicLink()) {
-              rmSync(linkPath, { force: true });
+            if (stats.isSymbolicLink() || stats.isDirectory()) {
+              rmSync(linkPath, { recursive: !stats.isSymbolicLink(), force: true });
             }
           }
         } catch {

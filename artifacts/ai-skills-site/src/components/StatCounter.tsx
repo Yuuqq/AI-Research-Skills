@@ -34,7 +34,7 @@ export function StatCounter({ end, label, prefix = "", suffix = "" }: { end: num
 
   return (
     <div ref={ref} className="flex flex-col items-center">
-      <div className="text-4xl md:text-5xl font-bold tracking-tight text-white mb-2">
+      <div className="text-4xl md:text-5xl font-bold tracking-tight text-foreground mb-2">
         {prefix}{displayCount}{suffix}
       </div>
       <div className="text-sm uppercase tracking-widest text-muted-foreground font-medium">

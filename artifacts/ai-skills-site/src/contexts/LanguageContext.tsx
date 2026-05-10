@@ -20,7 +20,8 @@ export function useLanguage() {
 
 export function LanguageProvider({ children }: { children: React.ReactNode }) {
   const [lang, setLang] = useState<Lang>(() => {
-    return (localStorage.getItem("lang") as Lang) || "en";
+    const stored = localStorage.getItem("lang");
+    return stored === "en" || stored === "zh" ? stored : "en";
   });
 
   useEffect(() => {

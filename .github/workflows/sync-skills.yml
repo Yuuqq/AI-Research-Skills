@@ -32,13 +32,13 @@ jobs:
           SKILL_DIRS=""
 
           # Pattern 1: Nested skills (XX-category/skill-name/)
-          NESTED=$(echo "$CHANGED_FILES" | grep -E '^[0-9]{2}-[^/]+/[^/]+/' | sed -E 's|^([0-9]{2}-[^/]+/[^/]+)/.*|\1|' | sort -u)
+          NESTED=$(echo "$CHANGED_FILES" | grep -E '^[0-9]+-[^/]+/[^/]+/' | sed -E 's|^([0-9]+-[^/]+/[^/]+)/.*|\1|' | sort -u)
           if [ -n "$NESTED" ]; then
             SKILL_DIRS="$NESTED"
           fi
 
           # Pattern 2: Standalone skills (XX-category/ with SKILL.md directly inside)
-          STANDALONE=$(echo "$CHANGED_FILES" | grep -E '^[0-9]{2}-[^/]+/SKILL\.md$' | sed -E 's|^([0-9]{2}-[^/]+)/SKILL\.md$|\1|' | sort -u)
+          STANDALONE=$(echo "$CHANGED_FILES" | grep -E '^[0-9]+-[^/]+/SKILL\.md$' | sed -E 's|^([0-9]+-[^/]+)/SKILL\.md$|\1|' | sort -u)
           if [ -n "$STANDALONE" ]; then
             if [ -n "$SKILL_DIRS" ]; then
               SKILL_DIRS=$(printf "%s\n%s" "$SKILL_DIRS" "$STANDALONE" | sort -u)

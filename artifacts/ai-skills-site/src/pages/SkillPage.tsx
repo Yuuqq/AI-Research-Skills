@@ -41,7 +41,7 @@ export default function SkillPage() {
     skillIndex >= 0 && skillIndex < category.skills.length - 1
       ? category.skills[skillIndex + 1]
       : null;
-  const installCommand = `git clone https://github.com/Yuuqq/AI-Research-Skills.git\ncd AI-Research-Skills/${category.slug}/${skill.slug}`;
+  const installCommand = `git clone https://github.com/Orchestra-Research/AI-research-SKILLs.git\ncd AI-research-SKILLs/${category.slug}/${skill.slug}`;
 
   const categoryLabel =
     lang === "zh" ? (categoryLabelsZh[category.slug] ?? category.label) : category.label;
@@ -51,7 +51,7 @@ export default function SkillPage() {
     skillOutlines as Record<string, SkillOutline>
   )[outlineKey];
 
-  const githubUrl = `https://github.com/Yuuqq/AI-Research-Skills/tree/main/${category.slug}/${skill.slug}`;
+  const githubUrl = `https://github.com/Orchestra-Research/AI-research-SKILLs/tree/main/${category.slug}/${skill.slug}`;
 
   const tocItems = [
     ...(outline ? [{ id: "overview", label: t("tocOverview") }] : []),

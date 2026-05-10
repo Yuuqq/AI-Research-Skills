@@ -13,7 +13,18 @@ export function CopyableCommand({ command, color }: CopyableCommandProps) {
 
   const handleCopy = async () => {
     try {
-      await navigator.clipboard.writeText(command);
+      if (navigator.clipboard?.writeText) {
+        await navigator.clipboard.writeText(command);
+      } else {
+        const ta = document.createElement("textarea");
+        ta.value = command;
+        ta.style.position = "fixed";
+        ta.style.opacity = "0";
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand("copy");
+        document.body.removeChild(ta);
+      }
       setCopied(true);
       setTimeout(() => setCopied(false), 1800);
     } catch {
